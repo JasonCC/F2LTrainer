@@ -125,7 +125,32 @@ Launch the app locally with:
 pnpm run dev
 ```
 
-Then open your browser at the address shown in the terminal (usually [http://localhost:5173](http://localhost:5173)).
+Then open your browser at the address shown in the terminal. Note the dev server
+runs over **HTTPS** (required for Web Bluetooth smart-cube support), so the URL is
+**[https://localhost:5173](https://localhost:5173)** — not `http://`. The browser
+will warn about the self-signed certificate the first time; accept it to continue.
+
+---
+
+### 6️⃣ (Optional) Configure Cloud Sync & Sign-In
+
+The app is **offline-first** and runs fully without any configuration — all data
+is stored in your browser. Cloud sync (Convex) and sign-in (Clerk) are optional.
+
+To enable them, copy the example env file and fill in real values:
+
+```bash
+cp .env.example .env
+```
+
+| Variable                       | Where to get it                                     |
+| ------------------------------ | --------------------------------------------------- |
+| `PUBLIC_CONVEX_URL`            | Printed by `npx convex dev`                         |
+| `PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk dashboard → API keys (starts with `pk_test_`) |
+
+Vite only reads `.env` at startup, so **restart `pnpm run dev`** after editing it.
+If these are missing, the app still boots — sync and sign-in are simply disabled
+(a notice is logged to the browser console).
 
 ---
 
